@@ -26,13 +26,13 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
         warmup_iters = min(1000, len(data_loader) - 1)
 
         lr_scheduler = utils.warmup_lr_scheduler(optimizer, warmup_iters, warmup_factor)
-        print("warmput end")
+        print("warmup end")
 
     for images, targets in metric_logger.log_every(data_loader, print_freq, header):
         print("inside for")
         images = list(image.to(device) for image in images)
         targets = [{k: v for k, v in t.items()} for t in targets]
-		
+		print("before model")
         loss_dict = model(images, targets)
 
         losses = sum(loss for loss in loss_dict.values())
