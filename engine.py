@@ -13,11 +13,12 @@ from torchvision.transforms import functional as F
 
 
 def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
+    print("train_ini")
     model.train()
     metric_logger = utils.MetricLogger(delimiter="  ")
     metric_logger.add_meter('lr', utils.SmoothedValue(window_size=1, fmt='{value:.6f}'))
     header = 'Epoch: [{}]'.format(epoch)
-    print("train_ini")
+
 
     lr_scheduler = None
     if epoch == 0:
