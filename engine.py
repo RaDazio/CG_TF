@@ -13,7 +13,6 @@ from torchvision.transforms import functional as F
 
 
 def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
-    print("train_ini")    
     model.train()
     metric_logger = utils.MetricLogger(delimiter="  ")
     metric_logger.add_meter('lr', utils.SmoothedValue(window_size=1, fmt='{value:.6f}'))
@@ -26,10 +25,10 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
         warmup_iters = min(1000, len(data_loader) - 1)
 
         lr_scheduler = utils.warmup_lr_scheduler(optimizer, warmup_iters, warmup_factor)
-        print("warmup end")
+
 
     for images, targets in metric_logger.log_every(data_loader, print_freq, header):
-        print("inside for")
+
         images = list(image.to(device) for image in images)
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 		
