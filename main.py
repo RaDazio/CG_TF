@@ -113,16 +113,21 @@ def main():
 	#test_loader = torch.utils.data.DataLoader(eval_data, batch_size=1, shuffle=True, num_workers=4, collate_fn=utils.collate_fn)
 	
 	NUM_EPOCHS = 10
+	x = np.arange(NUM_EPOCHS)
+	y = []
+	
 	for epoch in range(NUM_EPOCHS):
 
 		# train for one epoch, printing every 10 iterations
-		train_one_epoch(model, optimizer, train_loader, device, epoch, print_freq=5)
+		y.append(train_one_epoch(model, optimizer, train_loader, device, epoch, print_freq=5))
 		# evaluate on the test dataset
 		evaluate(model, eval_loader, device=device)
 		# checkpoint
 		torch.save(model.state_dict(), "ckp_{}.pt".format(epoch))
 
 	print('Finished Training')
+	plt.scatter(x, np.array(losses))
+	plt.savefig("test.png")
 
 		
 if __name__ == '__main__':
